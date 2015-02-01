@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+
+    <head>
+        <title>Ping Pong</title>
+    </head>
+
+    <body>
+        <h1>Ping Ping Index says...</h1>
+        hello world! <strong>{{ boldmessage }}</strong><br />
+        <a href="/pingpong/about/">About</a><br />
+        <img src="{% static "images/luke.png" %}" alt="Picture of Luke" />
+    </body>
+
+</html>
+
