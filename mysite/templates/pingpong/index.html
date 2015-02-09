@@ -1,19 +1,12 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
 {% load staticfiles %}
 
-<html>
+{% block title %}{{ page_title }}{% endblock %}
 
-    <head>
-        <title>Ping Pong</title>
-    </head>
+{% block body_block %}
 
-    <body>
-        <h1>Ping Ping Index says...</h1>
-        hello world! <strong>{{ boldmessage }}</strong><br />
-        <a href="/pingpong/about/">About</a><br />
+        <h1>Ping Ping Score Keeper</h1>
+        Select a link from the top<br />
         <img src="{% static "images/luke.png" %}" alt="Picture of Luke" />
-    </body>
-
-</html>
-
+{% endblock %}

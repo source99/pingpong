@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Rango</title>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
+{% load staticfiles %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block body_block %}
         <h1>Show a record</h1>
 
-        <form id="category_form" method="post" action="/pingpong/show_record/">
+        <form id="show_record_form" method="post" action="/pingpong/show_record/">
 
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
@@ -22,13 +22,11 @@
 
             <input type="submit" name="submit" value="Show Record" />
         </form>
-        {% if record %}
-        <h2>{{record.player_1_id.name}}</h2>
-
+        {% if matches %}
+        {% for match in matches %}
+        {{match}} <br>
+        {% endfor %}        
         {% endif %}
 
-    </body>
-
-</html>
-
+{% endblock %}
 

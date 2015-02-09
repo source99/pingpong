@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from pingpong.forms import PlayerForm, MatchForm, RecordForm
 from pingpong.models import Match
+from itertools import chain
+
 def index(request):
     context_dict = {'boldmessage' : "I am bold font from the context"}
     return render(request, 'pingpong/index.html', context_dict)
@@ -24,7 +26,7 @@ def add_player(request):
     else:
         form = PlayerForm()
 
-    return render(request,'pingpong/add_player.html',{'form' : form})
+    return render(request,'pingpong/add_player.html',{'form' : form, 'page_title' : "Add Player"})
 
 def add_match(request):
     if request.method == 'POST':
@@ -49,9 +51,11 @@ def show_record(request):
             print "form cleaned data = {}".format(form.cleaned_data)
             #query: player1 = id1 && player2 = id2 
             #<h2>{{record.player_1_id.name}}</h2>
-            matches = Match.objects.filter(player_1_id__name=form.cleaned_data['player_1_id'].name).filter
+            matches1 = Match.objects.filter(player_1_id__name=form.cleaned_data['player_1_id'].name).filter(player_2_id__name=form.cleaned_data['player_2_id'].name)
+            matches2 = Match.objects.filter(player_1_id__name=form.cleaned_data['player_2_id'].name).filter(player_2_id__name=form.cleaned_data['player_1_id'].name)
+            matches = list(chain(matches1, matches2))
             print matches            
-            return render(request,'pingpong/show_record.html',{'form' : form, 'record':form.cleaned_data})
+            return render(request,'pingpong/show_record.html',{'form' : form, 'matches' : matches})
         else:
             print form.errors
     else:
